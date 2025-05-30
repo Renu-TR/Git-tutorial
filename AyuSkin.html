@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyuSkin - Natural Ayurvedic Skincare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and Main Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf1f3; /* Light pastel pink */
+            color: #333; /* Default text color for readability */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 30px; /* Add padding to sections for better content spacing */
+            border-radius: 10px; /* Slightly rounded corners for sections */
+            position: relative; /* Needed for background overlays */
+            overflow: hidden; /* Ensure background doesn't overflow */
+            z-index: 1; /* Ensure content is above background */
+        }
+
+        /* Headings */
+        h1, h2, h3 {
+            color: #588157; /* Deeper earthy green for headings */
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            text-align: center; /* Center headings for a cleaner look */
+            margin-bottom: 25px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: #d3ece1; /* Light pastel green */
+            color: #333; /* Black text for readability against light green */
+            padding: 1em 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            color: #588157; /* Logo color */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: #333; /* Black text for navigation links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #7a9d96; /* Subtle hover color */
+        }
+
+        /* --- HERO SECTION (SLIDESHOW) --- */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            color: #333; /* Default text color for hero content */
+            padding: 0; /* Remove padding here as slides have their own */
+            background-color: #f9f4f0; /* Fallback color for hero */
+            box-shadow: none; /* No extra shadow on hero to keep it clean */
+        }
+
+        .slides-container {
+            display: flex;
+            width: 300%;
+            transition: transform 0.8s ease-in-out;
+            transform: translateX(0);
+        }
+
+        .slide {
+            min-width: 33.33%;
+            background-size: cover;
+            background-position: center;
+            height: 550px; /* Set a fixed height for the hero slides */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Needed for text overlay */
+            color: #333; /* Text color for readability over soft images */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle text shadow for better visibility */
+        }
+
+        /* Overlay for hero slide images to soften them and improve text readability */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.6); /* Increased white overlay opacity for better text contrast */
+            mix-blend-mode: multiply; /* Blends the white overlay with the background image */
+            z-index: -1; /* Puts the overlay behind the content */
+        }
+
+        .slide h1 {
+            font-size: 2.8em; /* Slightly larger for impact */
+            margin-bottom: 15px;
+            color: #588157; /* Heading color - keep it prominent */
+            max-width: 80%; /* Limit width for multi-line headings */
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            color: #444; /* Slightly darker paragraph color */
+            max-width: 70%;
+        }
+
+        .hero .cta-button {
+            background-color: #a0ced9; /* Pastel blue for CTA */
+            color: #000; /* Black text for readability */
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px; /* Slightly more rounded */
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for buttons */
+        }
+
+        .hero .cta-button:hover {
+            background-color: #8bbdc7;
+        }
+
+        /* Navigation Dots for Slideshow */
+        .slide-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            z-index: 10; /* Ensure dots are above background */
+        }
+
+        .slide-nav a {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.4); /* Darker dots for readability */
+            margin: 0 6px;
+            text-indent: -9999px; /* Hide text */
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.8); /* White border for contrast */
+        }
+
+        .slide-nav a.active {
+            background-color: #588157; /* Active dot color */
+        }
+
+        /* --- PRODUCT GRID --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly wider items */
+            gap: 25px; /* Increased gap */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Soft shadow */
+            position: relative; /* For background image */
+        }
+
+        .products-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1200x800/?flower,leaf,natural,ayurveda'); /* Soft background image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Light opacity */
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .product-item {
+            border: 1px solid #e0e0e0; /* Lighter border */
+            padding: 20px; /* More padding */
+            border-radius: 8px;
+            text-align: center;
+            background-color: white; /* Keep product items white for clarity */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Very subtle shadow */
+            transition: transform 0.2s ease-in-out;
+            z-index: 2; /* Ensure product item is above grid background */
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: 200px; /* Fixed height for consistent look */
+            object-fit: cover; /* Ensure images cover the space */
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .product-item h3 {
+            margin-top: 0;
+            font-size: 1.3em;
+            color: #7a9d96; /* Product heading color */
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .product-item .price {
+            color: #d62828; /* Subtle red for price */
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .product-item button {
+            background-color: #a0ced9; /* Pastel blue for product buttons */
+            color: #000; /* Black text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .product-item button:hover {
+            background-color: #8bbdc7;
+            transform: translateY(-2px);
+        }
+
+        /* --- ABOUT US --- */
+        .about-us {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .about-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1200x800/?ayurveda,meditation,wellness'); /* Soft background image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Light opacity */
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .about-us p {
+            line-height: 1.8;
+            color: #333; /* Text color */
+            max-width: 800px; /* Limit width for readability */
+            margin: 0 auto; /* Center paragraph */
+            text-align: justify; /* Justify text for a clean look */
+        }
+
+        /* --- BUY SECTION --- */
+        .buy-section {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #fcf4dd; /* Light pastel yellow */
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            color: #333; /* Black text for readability */
+        }
+
+        .buy-section h2 {
+            color: #588157;
+            margin-bottom: 15px;
+        }
+
+        .buy-section p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .buy-section a {
+            color: #007bff; /* Standard blue link */
+            text-decoration: none;
+            transition: text-decoration 0.3s ease;
+            font-weight: 500;
+        }
+
+        .buy-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- CONTACT FORM --- */
+        .contact-form {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1200x800/?spa,calm,plants'); /* Soft background image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Light opacity */
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .contact-form form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white; /* Form background */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 2; /* Ensure form is above section background */
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            text-align: left; /* Align labels to the left */
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: calc(100% - 16px); /* Adjusted for padding */
+            padding: 10px; /* More padding */
+            margin-bottom: 20px; /* More spacing */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .contact-form textarea {
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        .contact-form button {
+            background-color: #7a9d96; /* Soft green button */
+            color: white; /* White text for contrast on darker button */
+            border: none;
+            padding: 12px 25px; /* More padding */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-form button:hover {
+            background-color: #5e8a5e;
+            transform: translateY(-2px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 1.2em 20px;
+            background-color: #cfe2f3; /* Light pastel blue */
+            color: #333; /* Black text for readability */
+            margin-top: 50px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1em 10px;
+            }
+            nav ul {
+                margin-top: 10px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .slide h1 {
+                font-size: 1.8em; /* Adjusted for smaller screens */
+            }
+            .slide p {
+                font-size: 0.9em;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-item img {
+                height: 180px; /* Slightly smaller product image height on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">AyuSkin</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="slides-container">
+                <div class="slide" style="background-image: url('https://source.unsplash.com/random/1200x600/?radiant-skin,natural-beauty,woman-skincare');">
+                    <h1>Embrace Your Natural Radiance</h1>
+                    <p>Discover our exquisite range of Ayurvedic skincare products for a healthy glow.</p>
+                    <a href="#products" class="cta-button">Explore Products</a>
+                </div>
+                <div class="slide" style="background-image: url('https://source.unsplash.com/random/1200x600/?ayurvedic-ingredients,herbs,essential-oils');">
+                    <h1>Pure & Potent Ingredients</h1>
+                    <p>Crafted with the finest natural Ayurvedic herbs, oils, and extracts.</p>
+                    <a href="#about" class="cta-button">Learn More About Our Philosophy</a>
+                </div>
+                <div class="slide" style="background-image: url('https://source.unsplash.com/random/1200x600/?self-care,spa,skincare-ritual');">
+                    <h1>Your Daily Ritual of Self-Care</h1>
+                    <p>Nourish your skin and soul with the ancient wisdom of Ayurveda.</p>
+                    <a href="#contact" class="cta-button">Begin Your Journey</a>
+                </div>
+            </div>
+            <div class="slide-nav">
+                <a href="#">Slide 1</a>
+                <a href="#">Slide 2</a>
+                <a href="#">Slide 3</a>
+            </div>
+        </section>
+
+        <section id="products">
+            <h2>Our Ayurvedic Skincare Collection</h2>
+            <div class="products-grid">
+                <div class="product-item">
+                    <img src="https://source.unsplash.com/random/300x200/?skincare-face-mask,turmeric-mask" alt="Turmeric Brightening Face Mask">
+                    <h3>Turmeric Brightening Face Mask</h3>
+                    <p>A potent blend of turmeric, sandalwood, and neem to brighten complexion and reduce blemishes.</p>
+                    <p class="price">₹25.00</p>
+                    <button>View Details</button>
+                </div>
+                <div class="product-item">
+                    <img src="https://source.unsplash.com/random/300x200/?skincare-facial-oil,saffron-oil" alt="Saffron & Rose Facial Oil">
+                    <h3>Saffron & Rose Facial Oil</h3>
+                    <p>A luxurious blend of saffron, rose, and almond oil to deeply nourish and revitalize dry skin.</p>
+                    <p class="price">₹35.00</p>
+                    <button>View Details</button>
+                </div>
+                <div class="product-item">
+                    <img src="https://source.unsplash.com/random/300x200/?ayurvedic-body-wash,neem-tulsi" alt="Neem & Tulsi Body Wash">
+                    <h3>Neem & Tulsi Body Wash</h3>
+                    <p>A gentle and purifying body wash with neem and tulsi to cleanse and promote healthy skin.</p>
+                    <p class="price">₹18.00</p>
+                    <button>View Details</button>
+                </div>
+                <div class="product-item">
+                    <img src="https://source.unsplash.com/random/300x200/?ayurvedic-cream,moisturizer" alt="Jasmine & Coconut Moisturizer">
+                    <h3>Jasmine & Coconut Moisturizer</h3>
+                    <p>Hydrate and soothe your skin with this fragrant blend of jasmine and nourishing coconut.</p>
+                    <p class="price">₹28.00</p>
+                    <button>View Details</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-us">
+            <h2>About AyuSkin</h2>
+            <p>At AyuSkin, we believe in the power of Ayurveda to bring balance and radiance to your skin. Our products are carefully handcrafted using traditional recipes and the finest natural herbs, oils, and extracts. We are committed to providing gentle yet effective skincare solutions that honor the ancient wisdom of Ayurveda and promote overall well-being.</p>
+            <p>Our philosophy is rooted in the understanding that true beauty comes from within. We strive to create products that not only nourish your skin but also connect you to the healing power of nature. We source our ingredients ethically and sustainably, ensuring the highest quality and respect for the environment.</p>
+        </section>
+
+        <section class="buy-section">
+            <h2>Ready to Experience Our Skincare?</h2>
+            <p>For inquiries or to place an order, please contact us at:</p>
+            <p>Email: <a href="mailto:sales@ayuskin.com">sales@ayuskin.com</a></p>
+            <p>You can also browse our full catalog and make purchases on our <a href="[Link to your online store/platform]" target="_blank">online store</a>.</p>
+        </section>
+
+        <section id="contact" class="contact-form">
+            <h2>Get in Touch</h2>
+            <form action="#" method="post">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Send Enquiry</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AyuSkin. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const slidesContainer = document.querySelector('.slides-container');
+        const slides = document.querySelectorAll('.slide');
+        const slideNavLinks = document.querySelectorAll('.slide-nav a');
+        let currentIndex = 0;
+
+        // Function to go to a specific slide
+        function goToSlide(index) {
+            slidesContainer.style.transform = `translateX(-${index * 100 / slides.length}%)`;
+            updateNavDots(index);
+            currentIndex = index;
+        }
+
+        // Function to update navigation dots
+        function updateNavDots(index) {
+            slideNavLinks.forEach((link, i) => {
+                link.classList.remove('active');
+            });
+            if (slideNavLinks[index]) { // Ensure the link exists before adding class
+                slideNavLinks[index].classList.add('active');
+            }
+        }
+
+        // Event listeners for navigation dots
+        slideNavLinks.forEach((link, index) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                goToSlide(index);
+            });
+        });
+
+        // Auto-Slide functionality
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            goToSlide(currentIndex);
+        }
+
+        // Initial setup
+        updateNavDots(0); // Set first dot as active on load
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    </script>
+</body>
+</html>
